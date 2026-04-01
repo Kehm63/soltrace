@@ -78,8 +78,8 @@ app.post("/api/find-wallets", async (req, res) => {
   try {
     const walletSets = await Promise.all(
       mints.map(async mint => {
-        const [holders, traders] = await Promise.all([getTokenHolders(mint), getTokenTraders(mint)]);
-        return new Set([...holders, ...traders]);
+        const traders = await getTokenTraders(mint);
+return traders;
       })
     );
     const stats = walletSets.map((set, i) => ({ mint: mints[i], count: set.size }));
